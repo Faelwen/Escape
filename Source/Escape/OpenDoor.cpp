@@ -2,6 +2,7 @@
 
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 
 
@@ -25,6 +26,7 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Open Door"));
 	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
 }
 
@@ -40,7 +42,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Poll the Trigger Volume every frame. If the ActorThatOpens is in the volume, open the door
-	if (GetTotalMassOfActorsOnPlate() > 50.f) {
+	if (GetTotalMassOfActorsOnPlate() > 16.f) {
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
@@ -56,6 +58,10 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	float TotalMass = 0.f;
 	TArray<AActor*> OverlappingActors;
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
+	for (const auto& Actor : OverlappingActors) {
+		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Actor->GetName());
+	}
 	return TotalMass;
 }
 
