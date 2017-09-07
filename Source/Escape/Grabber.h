@@ -27,4 +27,6 @@ public:
 private:
 	float Reach = 100.f; // Grabbing reach in cm
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+	void Grab();
 };
