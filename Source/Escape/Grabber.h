@@ -32,5 +32,7 @@ private:
 	void Release();
 	void SetupInputComponent();
 	void FindPhysicsHandleComponent();
-	const FHitResult GetFirstPhysicsBodyInReach();
+	const FHitResult GetFirstPhysicsBodyInReach(); //return hit for first physics body in reach
+	FVector GetReachLineEnd(); //returns current end of reach line
+	FVector GetReachLineStart(); //returns current start of reach line
 };
