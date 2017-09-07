@@ -29,4 +29,5 @@ private:
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
 	void Grab();
+	void Release();
 };
